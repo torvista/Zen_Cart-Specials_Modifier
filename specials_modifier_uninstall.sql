@@ -1,0 +1,1 @@
+ALTER TABLE `specials` DROP `specials_modifier`;

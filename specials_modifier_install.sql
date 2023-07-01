@@ -1,0 +1,1 @@
+ALTER TABLE `specials` ADD `specials_modifier` VARCHAR(21) NOT NULL DEFAULT '';
