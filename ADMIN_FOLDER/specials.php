@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Plugin Specials Modifier: https://github.com/torvista/Zen_Cart-Specials_Modifier
  * @updated 01/07/2023
- * 
+ *
  * @copyright Copyright 2003-2023 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
@@ -149,6 +149,7 @@ if (!empty($action)) {
         $modifier = (!zen_not_null($tmp_value) || $tmp_value === '' || $tmp_value === 0) ? 0 : $tmp_value;
         $db->Execute('UPDATE ' . TABLE_SPECIALS . ' SET specials_modifier = "' . $modifier . '" WHERE specials_id = ' . $specials_id);
 // eof
+
       // reset products_price_sorter for searches etc.
       $update_price = $db->Execute("SELECT products_id
                                     FROM " . TABLE_SPECIALS . "
@@ -361,7 +362,9 @@ if (!empty($action)) {
           </div>
             <?php
             // Specials Modifier
-            $modifier = $db->Execute('SELECT specials_modifier FROM ' . TABLE_SPECIALS . ' WHERE products_id=' . (int)$sInfo->products_id . ' LIMIT 1'); ?>
+            if (!empty($sInfo->products_id)) {
+            $modifier = $db->Execute('SELECT specials_modifier FROM ' . TABLE_SPECIALS . ' WHERE products_id=' . (int)$sInfo->products_id . ' LIMIT 1');
+                ?>
             <div class="form-group">
                 <?php
                 echo zen_draw_label(SPECIALS_MODIFIER_LABEL_SPECIAL_MODIFIER, 'specials_price_modifier', 'class="col-sm-3 control-label"'); ?>
@@ -370,7 +373,7 @@ if (!empty($action)) {
                     echo zen_draw_input_field('specials_price_modifier', (empty($modifier->fields['specials_modifier']) ? '' : $modifier->fields['specials_modifier']), 'class="form-control" id="specials_price" disabled'); ?>
                 </div>
             </div>
-            <?php
+            <?php }
             // eof ?>
           <div class="form-group">
             <?php echo zen_draw_label(TEXT_SPECIALS_AVAILABLE_DATE, 'specials_date_available', 'class="col-sm-3 control-label"'); ?>
